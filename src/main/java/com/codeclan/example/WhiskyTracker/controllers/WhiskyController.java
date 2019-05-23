@@ -2,6 +2,7 @@ package com.codeclan.example.WhiskyTracker.controllers;
 
 import com.codeclan.example.WhiskyTracker.models.Distillery;
 import com.codeclan.example.WhiskyTracker.models.Whisky;
+import com.codeclan.example.WhiskyTracker.repositories.DistilleryRepository.DistilleryRepository;
 import com.codeclan.example.WhiskyTracker.repositories.WhiskyRepository.WhiskyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,9 @@ public class WhiskyController {
     @Autowired
     WhiskyRepository whiskyRepository;
 
+    @Autowired
+    DistilleryRepository distilleryRepository;
+
     @GetMapping
     public List<Whisky> getAllWhiskys(){
         return whiskyRepository.findAll();
@@ -28,9 +32,16 @@ public class WhiskyController {
         return whiskyRepository.findWhiskyByYear(year);
     }
 
-    @GetMapping(value = "/distillery/{distillery_id}/age/{age}")
-    public List<Whisky> findWhiskyFromDistilleryByAge(@PathVariable("distillery_id") Long distillery_id, @PathVariable("age") int age){
-        return whiskyRepository.findWhiskyFromDistilleryByAge(distillery_id, age);
+
+    @GetMapping(value = "/age/{age}/distilleries")
+    public List<Distillery> getDistilleriesForWhiskiesAged(@PathVariable int age){
+        return distilleryRepository.getDistilleriesForWhiskiesAged(age);
+    }
+
+
+    @GetMapping(value = "/region/{region}")
+    public List<Whisky> getAllWhiskiesFromRegion(@PathVariable String region){
+        return whiskyRepository.getAllWhiskiesFromRegion(region);
     }
 
 

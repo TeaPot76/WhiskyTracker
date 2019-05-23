@@ -35,8 +35,8 @@ public class WhiskyTrackerApplicationTests {
 	}
 
 	@Test
-	public void findWhiskyFromDistilleryByAge(){
-		List<Whisky> found = whiskyRepository.findWhiskyFromDistilleryByAge(1L, 15);
+	public void canfindWhiskyFromDistilleryByAge(){
+		List<Whisky> found = whiskyRepository.findWhiskyByDistilleryIdAndAge(1L, 15);
 		System.out.println(found);
 
 	}
